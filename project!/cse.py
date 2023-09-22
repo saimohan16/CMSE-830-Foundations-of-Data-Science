@@ -8,7 +8,7 @@ Created on Wed Sep  6 08:44:15 2023
 import streamlit as st
 import seaborn as sns
 import pandas as pd
-df = pd.read_csv(r"D:\Ph.D\Semester-III\CMSE-830\In-class Assignments\Cancer_data.csv")
+df = pd.read_csv("path-to-the-data")
 st.write("plots for the cancer dataset")
 X_axis = st.text_input('input for X-axis ')
 Y_axis = st.text_input('input for Y-axis')

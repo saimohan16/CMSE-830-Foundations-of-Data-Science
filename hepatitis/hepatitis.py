@@ -19,7 +19,7 @@ def load_data():
         'Ascites', 'Varices', 'Bilirubin', 'Alk_Phosphate', 'SGOT', 'Albumin',
         'Protime', 'Histology'
     ]
-    hepatitis_df = pd.read_csv(r"C:\Users\saimo\Downloads\hepatitis\hepatitis.data", names=column_names, na_values='?')
+    hepatitis_df = pd.read_csv("hepatitis/hepatitis.data", names=column_names, na_values='?')
     return hepatitis_df
 
 hepatitis_df = load_data()

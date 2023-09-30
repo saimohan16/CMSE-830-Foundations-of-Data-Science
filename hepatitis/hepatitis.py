@@ -10,6 +10,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
 # Load the Hepatitis dataset
 @st.cache  # Use Streamlit's caching for better performance
 def load_data():
@@ -37,6 +39,7 @@ st.write(hepatitis_df.describe())
 
 # Data visualization (Seaborn plots)
 st.write("### Data Visualization")
+
 
 # Example 1: Pairplot (scatter plots and histograms)
 st.write("#### Pairplot")

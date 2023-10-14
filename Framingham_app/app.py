@@ -15,13 +15,20 @@ data = pd.read_csv('Framingham_app/framingham.csv')
 # Streamlit web app title
 st.title('Framingham Heart Study Dataset Viewer')
 
+# Display the dataset
+if st.checkbox('Show Raw Data'):
+    st.write(pd.DataFrame(df, columns=df.columns))
+    st.write('Basic Breast Cancer Dataset Information:')
+    st.write(f'Total Number of Samples: {df.shape[0]}')
+    st.write(f'Number of Features: {df.shape[1]}')
+
 # Display dataset summary statistics
 st.write("### Summary Statistics")
 st.write(data.describe())
 
 # Display dataset
-st.write("### Framingham Heart Study Dataset")
-st.write(data)
+# st.write("### Framingham Heart Study Dataset")
+# st.write(data)
 
 # Sidebar to filter data
 st.sidebar.header('Data Filters')

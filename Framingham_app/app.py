@@ -10,7 +10,7 @@ import pandas as pd
 import altair as alt
 
 # Load the Framingham dataset (you'll need to replace 'framingham.csv' with the actual dataset file path)
-data = pd.read_csv('framingham.csv')
+data = pd.read_csv('Framingham_app/framingham.csv')
 
 # Streamlit web app title
 st.title('Framingham Heart Study Dataset Viewer')

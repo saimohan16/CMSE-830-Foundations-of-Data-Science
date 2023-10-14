@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the Framingham dataset 
-data = pd.read_csv('framingham.csv')
+data = pd.read_csv('Framingham_app/framingham.csv')
 
 # Streamlit web app title
 st.title('Framingham Heart Study Dataset Viewer')

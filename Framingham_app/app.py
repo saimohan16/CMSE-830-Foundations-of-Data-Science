@@ -17,10 +17,11 @@ st.title('Framingham Heart Study Dataset Viewer')
 
 # Display the dataset
 if st.checkbox('Show Raw Data'):
-    st.write(pd.DataFrame(data, columns=df.columns))
+    #st.write(pd.DataFrame(data, columns=df.columns))
+    st.write(data.columns)
     st.write('Basic Breast Cancer Dataset Information:')
-    st.write(f'Total Number of Samples: {df.shape[0]}')
-    st.write(f'Number of Features: {df.shape[1]}')
+    st.write(f'Total Number of Samples: {data.shape[0]}')
+    st.write(f'Number of Features: {data.shape[1]}')
 
 # Display dataset summary statistics
 st.write("### Summary Statistics")

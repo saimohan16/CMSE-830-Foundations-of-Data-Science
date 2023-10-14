@@ -7,44 +7,55 @@ Created on Fri Oct 13 20:37:30 2023
 
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import altair as alt
 
-# Load the Framingham dataset 
-data = pd.read_csv('Framingham_app/framingham.csv')
+# Load the Framingham dataset (you'll need to replace 'framingham.csv' with the actual dataset file path)
+data = pd.read_csv('framingham.csv')
 
 # Streamlit web app title
 st.title('Framingham Heart Study Dataset Viewer')
 
+# Display dataset summary statistics
+st.write("### Summary Statistics")
+st.write(data.describe())
+
+# Display dataset
+st.write("### Framingham Heart Study Dataset")
+st.write(data)
+
 # Sidebar to filter data
 st.sidebar.header('Data Filters')
 age_filter = st.sidebar.slider('Filter by Age', min_value=int(data['age'].min()), max_value=int(data['age'].max()))
-sex_filter = st.sidebar.selectbox('Filter by Sex', ['All'] + data['sex'].unique())
 
 # Apply filters
-filtered_data = data[(data['age'] <= age_filter) & (data['sex'] if sex_filter == 'All' else (data['sex'] == sex_filter))]
+filtered_data = data[data['age'] <= age_filter]
 
-# Display dataset size
-st.write("### Filtered Data Size")
-st.write(f"Number of Rows: {len(filtered_data)}")
+# Display filtered data
+st.write("### Filtered Data")
+st.write(filtered_data)
 
-# Show a bar chart of age distribution
+# Show an Altair plot of age distribution
 st.write("### Age Distribution")
-age_dist = sns.histplot(data=filtered_data, x='age', kde=True)
-st.pyplot(age_dist)
+age_chart = alt.Chart(filtered_data).mark_bar().encode(
+    x=alt.X('age:Q', bin=True),
+    y='count()',
+    tooltip=['age:Q', 'count()']
+).interactive()
+st.altair_chart(age_chart)
 
-# Interactive Scatter Plot
+# Interactive scatter plot
 st.write("### Interactive Scatter Plot")
-x_axis = st.selectbox('X-Axis:', data.columns)
-y_axis = st.selectbox('Y-Axis:', data.columns)
-scatter_plot = st.scatter_chart(data=filtered_data, x=x_axis, y=y_axis)
-st.pyplot(scatter_plot)
+x_column = st.selectbox("X-axis", filtered_data.columns)
+y_column = st.selectbox("Y-axis", filtered_data.columns)
+scatter_chart = alt.Chart(filtered_data).mark_circle().encode(
+    x=x_column,
+    y=y_column,
+    tooltip=[x_column, y_column]
+).interactive()
+st.altair_chart(scatter_chart)
 
-# Correlation Heatmap
-st.write("### Correlation Heatmap")
-corr = filtered_data.corr()
-heatmap = sns.heatmap(corr, annot=True)
-st.pyplot(heatmap)
+# Add more features and interactions as needed
+
 
 
 

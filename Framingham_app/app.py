@@ -32,8 +32,8 @@ st.write(data.describe())
 # st.write(data)
 
 # Sidebar to filter data
-st.sidebar.header('Data Filters')
-age_filter = st.sidebar.slider('Filter by Age', min_value=int(data['age'].min()), max_value=int(data['age'].max()))
+st.header('Data Filters')
+age_filter = st.slider('Filter by Age', min_value=int(data['age'].min()), max_value=int(data['age'].max()))
 
 # Apply filters
 filtered_data = data[data['age'] <= age_filter]

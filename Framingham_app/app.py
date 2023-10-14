@@ -16,10 +16,10 @@ data = pd.read_csv('Framingham_app/framingham.csv')
 st.title('Framingham Heart Study Dataset Viewer')
 
 # Display the dataset
-if st.checkbox('Show Raw Data'):
+if st.checkbox('Show The Framingham Data'):
     #st.write(pd.DataFrame(data, columns=df.columns))
     st.write(data.columns)
-    st.write('Basic Breast Cancer Dataset Information:')
+    st.write('Basic Framingham Dataset Information:')
     st.write(f'Total Number of Samples: {data.shape[0]}')
     st.write(f'Number of Features: {data.shape[1]}')
 

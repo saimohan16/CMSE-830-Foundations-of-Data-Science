@@ -11,21 +11,45 @@ import altair as alt
 
 import streamlit as st
 
+
+
+
+import streamlit as st
+
+# Add custom CSS to change background color to black
 st.markdown(
     """
-background: #ff0099; 
-  background: -webkit-linear-gradient(to right, #ff0099, #493240); 
-  background: linear-gradient(to right, #ff0099, #493240);"
+    <style>
+    body {
+        background-color: #000000;  /* Black color */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-st.markdown("""
-<style>
-body {
-  background: #ff0099; 
-  background: -webkit-linear-gradient(to right, #ff0099, #493240); 
-  background: linear-gradient(to right, #ff0099, #493240); 
-}
-</style>
-    """, unsafe_allow_html=True)
+# Add title to the Streamlit app
+st.title("Black Background Streamlit App")
+
+# Sidebar to select the page
+page = st.sidebar.selectbox("Select a page", ["Page 1", "Page 2"])
+
+# Page 1 content
+if page == "Page 1":
+    st.subheader("Page 1")
+    st.write("This is the content for Page 1.")
+
+# Page 2 content
+if page == "Page 2":
+    st.subheader("Page 2")
+    st.write("This is the content for Page 2.")
+
+
+
+
+
+
+
 
 
 # Load the Framingham dataset (you'll need to replace 'framingham.csv' with the actual dataset file path)

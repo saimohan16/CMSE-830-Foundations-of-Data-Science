@@ -13,23 +13,13 @@ import streamlit as st
 
 # Add custom CSS to change background color
 st.markdown(
-    """
     <style>
     body {
         background-color: #f0f0f0;  /* Change this color to your desired background color */
     }
     </style>
-    """,
     unsafe_allow_html=True
 )
-
-# Add content to your Streamlit app
-st.title("Change Background Color Example")
-st.write("This is a Streamlit app with a custom background color.")
-
-
-
-
 # Load the Framingham dataset (you'll need to replace 'framingham.csv' with the actual dataset file path)
 data = pd.read_csv('Framingham_app/framingham.csv')
 

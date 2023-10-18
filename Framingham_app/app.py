@@ -30,7 +30,7 @@ with tab1:
    st.title("Framingham Heart Study Data")
    image = Image.open('Framingham_app/doctor_pointing_to_heart_graph.jpg')
 
-   st.image(image, caption='Sunrise by the mountains')
+   st.image(image, caption='Image')
    
    st.title("About the DATA")
    st.write("The Framingham Heart Study is a long-term, ongoing cardiovascular cohort study that began in 1948 in Framingham, Massachusetts, USA. It's one of the most well-known and influential epidemiological studies of heart disease. The study has provided valuable insights into the risk factors associated with cardiovascular disease and has helped shape our understanding of heart disease and its prevention. The Framingham dataset is a collection of data generated through this study, and it's widely used in epidemiological and public health research.")

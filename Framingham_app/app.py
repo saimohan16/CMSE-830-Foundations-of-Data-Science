@@ -4,56 +4,68 @@ Created on Fri Oct 13 20:37:30 2023
 
 @author: saimo
 """
-
 import streamlit as st
 import pandas as pd
-import altair as alt
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-import streamlit as st
+# Load the Framingham dataset
+@st.cache
+def load_data():
+    data = pd.read_csv('Framingham_app/framingham.csv')  # Replace with the actual path to your dataset
+    return data
 
+data = load_data()
 
+# Create tabs for the two pages
+tabs = st.beta_container()
 
+with tabs:
+    selected_tab = st.radio("Select a page", ("Data Information", "Data Plots"))
+    
+    # Page 1: Information about the data
+    if selected_tab == "Data Information":
+        st.title("Framingham Heart Study Data")
+        st.write("This page provides information about the Framingham dataset.")
+        st.write("The Framingham Heart Study dataset contains information about heart disease risk factors and outcomes.")
+    
+    # Page 2: Plots
+    if selected_tab == "Data Plots":
+        # Display filtered data
+        st.write("### Filtered Data")
+        st.write(filtered_data)
+        
+        # Show an Altair plot of age distribution
+        st.write("### Age Distribution")
+        age_chart = alt.Chart(filtered_data).mark_bar().encode(
+            x=alt.X('age:Q', bin=True),
+            y='count()',
+            tooltip=['age:Q', 'count()']
+        ).interactive()
+        st.altair_chart(age_chart)
+        
+        # Interactive scatter plot
+        st.write("### Interactive Scatter Plot")
+        x_column = st.selectbox("X-axis", filtered_data.columns)
+        y_column = st.selectbox("Y-axis", filtered_data.columns)
+        scatter_chart = alt.Chart(filtered_data).mark_circle().encode(
+            x=x_column,
+            y=y_column,
+            tooltip=[x_column, y_column]
+        ).interactive()
+        st.altair_chart(scatter_chart)
 
-import streamlit as st
-
-# Add custom CSS to change background color to black
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #000000;  /* Black color */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Add title to the Streamlit app
-st.title("Black Background Streamlit App")
-
-# Sidebar to select the page
-page = st.sidebar.selectbox("Select a page", ["Page 1", "Page 2"])
-
-# Page 1 content
-if page == "Page 1":
-    st.subheader("Page 1")
-    st.write("This is the content for Page 1.")
-
-# Page 2 content
-if page == "Page 2":
-    st.subheader("Page 2")
-    st.write("This is the content for Page 2.")
-
-
-
-
-
-
-
-
-
-# Load the Framingham dataset (you'll need to replace 'framingham.csv' with the actual dataset file path)
-data = pd.read_csv('Framingham_app/framingham.csv')
+        
+        st.title("Data Visualization")
+        st.write("This page displays plots and visualizations of the Framingham dataset.")
+        
+        # Example: Plot a histogram of Age
+        st.subheader("Age Distribution")
+        plt.figure(figsize=(8, 6))
+        sns.histplot(data['age'], bins=20, kde=True)
+        st.pyplot()
+        
+        # Add more plots and visualizations as needed
 
 # Streamlit web app title
 st.title('Framingham Heart Study Dataset Viewer')
@@ -95,15 +107,15 @@ age_chart = alt.Chart(filtered_data).mark_bar().encode(
 st.altair_chart(age_chart)
 
 # Interactive scatter plot
-st.write("### Interactive Scatter Plot")
-x_column = st.selectbox("X-axis", filtered_data.columns)
-y_column = st.selectbox("Y-axis", filtered_data.columns)
-scatter_chart = alt.Chart(filtered_data).mark_circle().encode(
-    x=x_column,
-    y=y_column,
-    tooltip=[x_column, y_column]
-).interactive()
-st.altair_chart(scatter_chart)
+#st.write("### Interactive Scatter Plot")
+#x_column = st.selectbox("X-axis", filtered_data.columns)
+#y_column = st.selectbox("Y-axis", filtered_data.columns)
+#scatter_chart = alt.Chart(filtered_data).mark_circle().encode(
+#   x=x_column,
+#    y=y_column,
+#    tooltip=[x_column, y_column]
+#).interactive()
+#st.altair_chart(scatter_chart)
 
 # Add more features and interactions as needed
 

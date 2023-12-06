@@ -456,7 +456,7 @@ with tab5:
         mean_accuracy_score = np.mean(accuracy_scores)
         st.write(f"Mean Accuracy Score (Cross-Validation): {mean_accuracy_score:.4f}")
         st.write(f"Mean F1 Score (Cross-Validation): {mean_score:.4f}")
-        return mean_f1_score, mean_accuracy_score
+        return mean_score, mean_accuracy_score
         #st.write(f"Mean F1 Score (Cross-Validation): {mean_score:.4f}")
         
         #return mean_score

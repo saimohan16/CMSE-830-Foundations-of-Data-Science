@@ -75,7 +75,7 @@ tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["About Data", "Basic information Plot
 
 with tab1:
    st.title("Framingham Heart Study Data")
-   image = Image.open('/home/mohan/Downloads/doctor_pointing_to_heart_graph.jpg')
+   image = Image.open('Framingham_app/doctor_pointing_to_heart_graph.jpg')
 
    st.image(image, caption='Image')
    

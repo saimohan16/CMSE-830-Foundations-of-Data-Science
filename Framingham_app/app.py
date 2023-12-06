@@ -65,7 +65,7 @@ st.set_page_config(layout="wide")
 # Load the Framingham dataset
 @st.cache_data
 def load_data():
-    data = pd.read_csv('/home/mohan/Downloads/framingham.csv')  # Replace with the actual path to your dataset
+    data = pd.read_csv('Framingham_app/framingham.csv')  # Replace with the actual path to your dataset
     return data
 
 data = load_data()
@@ -395,7 +395,7 @@ with tab4:
 with tab5:
     #data, selected_columns = oad_data()
     def oad_data():
-        data = pd.read_csv('/home/mohan/Downloads/framingham.csv')
+        data = pd.read_csv('Framingham_app/framingham.csv')
         
         data = data.sample(frac=0.6, random_state=42)  # Use a fixed random state for reproducibility
 
@@ -556,7 +556,7 @@ with tab6:
 
     # Function to load and preprocess data
     def oad_data():
-        data = pd.read_csv('/home/mohan/Downloads/framingham.csv')
+        data = pd.read_csv('Framingham_app/framingham.csv')
         data = data.sample(frac=0.6, random_state=42)
 
         # Preprocessing steps

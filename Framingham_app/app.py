@@ -328,6 +328,8 @@ with tab3:
             plt.legend()
             # plt.show(
             st.pyplot()
+    st.subheader('Conclusion')
+    st.write('From the above plots we can see the relation that how each feature is being associate with the output and we also get know about the distribution of the data according to the target class')
 
 with tab4: 
     

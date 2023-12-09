@@ -71,13 +71,16 @@ def load_data():
 data = load_data()
 
 
-tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["About Data", "Basic information Plots", "UniVariant Analysis Plots","MultiVariant Analysis Plots","Machine Learning Models","Inference code"])
+tab1, tab2, tab3,tab4,tab5,tab6,tab7 = st.tabs(["About Data", "Basic information Plots", "UniVariant Analysis Plots","MultiVariant Analysis Plots","Machine Learning Models","Inference on Inputs","Bio"])
 
 with tab1:
    st.title("Framingham Heart Study Data")
-   image = Image.open('Framingham_app/doctor_pointing_to_heart_graph.jpg')
+   image = Image.open('Framingham_app/Heart_img.png')
+   img = image.resize((image.height, 300))
 
-   st.image(image, caption='Image')
+
+
+   st.image(img, caption='Image')
    
    st.title("About the DATA")
    st.write("The Framingham Heart Study is a long-term, ongoing cardiovascular cohort study that began in 1948 in Framingham, Massachusetts, USA. It's one of the most well-known and influential epidemiological studies of heart disease. The study has provided valuable insights into the risk factors associated with cardiovascular disease and has helped shape our understanding of heart disease and its prevention. The Framingham dataset is a collection of data generated through this study, and it's widely used in epidemiological and public health research.")
@@ -393,7 +396,12 @@ with tab4:
 
 
 with tab5:
+    st.title("Machine Learning Classifier Performance")
     #data, selected_columns = oad_data()
+    st.write('The Predictive Analysis feature within the application utilizes sophisticated machine learning models such as Logistic Regression and Random Forest to unravel the features of the subjects. With a diverse array of models, users can gain varied analytical perspectives on Framingham Data.')
+    st.write('This tab serves as a conduit for translating complex data into accessible and interactive insights, enabling users, from decision-makers to the general public, to experiment with data and witness immediate results. This approach not only facilitates the prediction and comprehension of this complex data but also empowers users to engage with and respond to these critical issues proactively. The customization feature allows users to tailor the analysis with respect to the selected feautures and also use top 10 features to dervide insights.')
+    st.write('The inclusion of a range of models is pivotal, as it enables users to apply diverse analytical perspectives to the same dataset. This diversity is critical because different models can spotlight distinct facets of the data.')
+    st.markdown("""<hr style="height:3px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
     def oad_data():
         data = pd.read_csv('Framingham_app/framingham.csv')
         
@@ -473,7 +481,7 @@ with tab5:
         st.pyplot(fig)
 
     # Main app
-    st.title("Machine Learning Classifier Performance")
+    #st.title("Machine Learning Classifier Performance")
     
     #st.title("Machine Learning Classifier Performance")
 
@@ -482,10 +490,13 @@ with tab5:
 
     # Sidebar for feature selection
     all_features = data.drop('TenYearCHD', axis=1).columns.tolist()
-    selected_features = st.sidebar.multiselect("Select Features for Training", all_features, default=all_features[:10])
+    selected_features = st.multiselect("Select Features for Training", all_features, default=all_features[:10])
 
     # Option to use top 10 features from SelectKBest
-    use_top_features = st.sidebar.checkbox("Use Top 10 Features from SelectKBest", value=True)
+    use_top_features = st.checkbox("Use Top 10 Features from SelectKBest", value=True)
+    
+    st.markdown("""<hr style="height:3px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
+
 
     # Prepare data based on feature selection
     if use_top_features:
@@ -498,12 +509,14 @@ with tab5:
     data = oad_data()
 
     # Sidebar for CV folds and feature selection
-    cv_folds = st.sidebar.slider("Select Number of Cross-Validation Folds", min_value=2, max_value=10, value=5)
+    cv_folds = st.slider("Select Number of Cross-Validation Folds", min_value=2, max_value=10, value=5)
     #selected_features = st.sidebar.multiselect("Select Features for Training", 
                                            #options=data.columns.drop('TenYearCHD').tolist(), 
                                            #default=data.columns.drop('TenYearCHD').tolist()[:10])
 
     #selected_features = st.sidebar.multiselect("Select Features for Training", data.columns.drop('TenYearCHD'), default=data.columns.drop('TenYearCHD'))
+    st.markdown("""<hr style="height:3px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
+
 
     # Prepare data
     #X = data[selected_features]
@@ -546,9 +559,15 @@ with tab5:
     	if st.button('Run Naive Bayes'):
         	train_evaluate_model_cv(model_nb, X, y, cv_folds)
 
-
+    st.subheader("How each model understands data ?")
+    st.write('Logistic Regression: Overview: Logistic Regression is a statistical method used for binary classification problems. It predicts the probability of an instance belonging to a particular class. Application: In the context of Framingham data, Logistic Regression can be used to predict the likelihood of a participant developing a cardiovascular condition based on various input features such as age, cholesterol levels, blood pressure, etc. However becaue of the complex features presnt in the dataset. This models fails to provide accurate predictions')
+    st.write('Random Forest: Random Forest is an ensemble learning method that builds multiple decision trees and merges their predictions. It is versatile and can be used for both classification and regression tasks. Application: In the Framingham dataset, Random Forest could be employed to identify important features contributing to cardiovascular risk and provide robust predictions by aggregating outputs from multiple decision trees. This models performs the best and it is able to provide predictions irrespective of the features')
+    st.write('Naive Bayes: Naive Bayes is a probabilistic classification algorithm based on Bayes theorem. Despite its simplicity, it often performs well, especially in text classification and simple datasets. Application: Naive Bayes can be applied to predict cardiovascular risk in the Framingham dataset by assuming independence between features, making it suitable for situations where this assumption is reasonable.')
+    st.write('Gradient Boosting:Gradient Boosting is an ensemble technique that builds a series of weak learners (usually decision trees) sequentially, with each one correcting errors of its predecessor. Application: In the context of the Framingham data, Gradient Boosting can effectively capture complex relationships between features and the target variable, providing accurate predictions by combining the strengths of multiple weak models.')
+    st.write('Experimenting with these models on the Framingham dataset allows for a nuanced understanding of their effectiveness in forecasting and dissecting cardiovascular risk. The choice of model depends on the specific characteristics of the data and the complexity of the scenarios being analyzed. By leveraging this diverse set of models, researchers and analysts can tailor their approach to gain comprehensive insights into the multifaceted nature of cardiovascular health and risk prediction.')
     # Plot top features
     plot_top_features(X, y)
+    #st.subheader("How each model understands data ?")
     
 
 with tab6:
@@ -631,13 +650,36 @@ with tab6:
 
         # Displaying the predictions
             for model_name, prediction in predictions.items():
-                result = "Positive for CHD" if prediction == 1 else "Negative for CHD"
-                st.write(f"{model_name} Prediction: {result}")
+            	if model_name == 'Random Forest':
+                	result = "Positive for CHD" if prediction == 1 else "Negative for CHD"
+                	st.write(f"{model_name} Prediction: {result}")
             #models = train_models(X_train, y_train)
             #predictions = {name: model.predict(input_df)[0] for name, model in models.items()}
             #for model_name, prediction in predictions.items():
                 #st.write(f"{model_name} Prediction: {prediction}")
+                
+        st.markdown("""<hr style="height:3px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
+                
+        st.subheader("Conclusion")
+        st.write("Our innovative web application, built upon the rich Framingham dataset, offers users a powerful and insightful platform for comprehensive data analysis and prediction in cardiovascular health.")
+        st.write(" The univariate analysis component provides a meticulous examination of individual variables within the Framingham dataset. Users can delve into the distributions, central tendencies, and variations of key parameters, establishing a foundational understanding of each variable's characteristics. Advancing from univariate analysis, our app seamlessly integrates multivariate analysis capabilities, enabling users to uncover complex relationships and dependencies between various cardiovascular risk factors. This sophisticated exploration facilitates a holistic perspective, empowering users to discern intricate patterns and connections that contribute to a comprehensive understanding of cardiovascular health.")
+        st.write("The true value of our application lies in its predictive prowess, driven by machine learning classifiers trained on the Framingham dataset. These models offer users the ability to anticipate potential cardiovascular events, assess risk factors, and make informed decisions for proactive health management. The predictive insights gleaned from our models contribute to a more personalized and preventive approach to cardiovascular care. Our user-friendly interface ensures accessibility for a diverse audience, from healthcare professionals to individuals keen on monitoring their cardiovascular health. By seamlessly integrating analytical tools and machine learning models, our app becomes an indispensable resource for deriving actionable insights from the Framingham dataset, ultimately contributing to enhanced cardiovascular risk assessment and personalized health strategies.")
+        st.write("In summary, our web application on the Framingham dataset stands as a comprehensive solution, providing a deep dive into data analysis and predictive modeling specific to cardiovascular health. It is poised to make a meaningful impact on healthcare decision-making and individual well-being, aligning with the broader goals of proactive and personalized healthcare management.")
 
     # Optional: Add model performance metrics or other analyses here
+    
+with tab7:
+    st.title("About the Developer ")
+
+    col1, col2 = st.columns(2)
+
+    col1.subheader("Sai Mohan Gajapaka")
+    col1.text("Master's in Data Science, MSU")
+    col1.write("As a dedicated Python programmer with a robust foundation in mathematical modeling and deep neural networks, I am currently advancing my journey in data science. My academic and research experiences have nurtured a strong proficiency in statistical analysis and machine learning, fueling my drive to tackle challenging problems with innovative solutions. My passion lies in applying my skills to real-world issues, particularly those that can make a positive social impact. I am constantly seeking opportunities that challenge me to grow and refine my abilities in this dynamic field. Beyond my academic pursuits, I have a keen interest in watching anime, which not only serves as a creative outlet but also often inspires my approach to complex problems. I'm deeply curious about the potential of deep learning and its applications, and I am committed to exploring its frontiers to contribute meaningfully to the field of data science.")
+    
+    try :
+        col2.image("Framingham_app/profile.png")
+    except:
+     pass
 
 

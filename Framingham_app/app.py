@@ -244,8 +244,8 @@ with tab2:
     # st.pyplot()
     # st.header("A dog")
     # st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
-    st.subheader("Conclusion")
-    st.write(" From the above analysis we can clearly see how the data is distributed and how the missing values look after imputation.")
+    #st.subheader("Conclusion")
+    #st.write(" From the above analysis we can clearly see how the data is distributed and how the missing values look after imputation.")
     
 
 with tab3:

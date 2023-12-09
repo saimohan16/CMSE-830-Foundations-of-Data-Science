@@ -398,6 +398,8 @@ with tab4:
         st.components.v1.html(open(hiplot_html_file, 'r').read(), height=1500, scrolling=True)
     else:
         st.write("No data selected. Please choose at least one column to visualize.")
+    st.subheader('Conclusion')
+    st.write('This tab was mainly used to understand how two features of the data played a role in understanding the target disease. From the Hi-plot we can interactively and select the features and data accordingly to see what effect the features have on Heart Disease.')
 
 
 with tab5:
